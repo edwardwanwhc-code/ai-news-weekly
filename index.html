@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Weekly — Your Weekly AI Intelligence Briefing</title>
+    <meta name="description" content="Weekly curated AI news, developments, and breakthroughs. Updated every Sunday.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">AI News<span class="logo-accent">Weekly</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#latest" class="nav-link active">Latest</a>
+                <a href="#research" class="nav-link">Research</a>
+                <a href="#industry" class="nav-link">Industry</a>
+                <a href="#tools" class="nav-link">Tools & Models</a>
+                <a href="#gadgets" class="nav-link">AI Gadgets</a>
+                <a href="#trends" class="nav-link">Trends</a>
+                <a href="#archive" class="nav-link">Archive</a>
+            </div>
+            <div class="last-updated">
+                <span class="pulse-dot"></span>
+                <span id="update-time">Loading...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg">
+            <div class="grid-overlay"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">Weekly AI Intelligence Briefing</div>
+            <h1 class="hero-title">
+                What's Happening in<br><span class="gradient-text">Artificial Intelligence</span>
+            </h1>
+            <p class="hero-subtitle" id="week-range">Week of May 10–16, 2026</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" id="stat-articles">0</span>
+                    <span class="stat-label">Articles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="stat-topics">0</span>
+                    <span class="stat-label">Topics</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="stat-sources">0</span>
+                    <span class="stat-label">Sources</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+
+        <!-- Top Stories / Latest Section -->
+        <section id="latest" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">⚡</span> Top Stories This Week
+                </h2>
+                <span class="section-tag">Featured</span>
+            </div>
+            <div class="stories-grid" id="top-stories">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Research Breakthroughs -->
+        <section id="research" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">🔬</span> Research Breakthroughs
+                </h2>
+                <span class="section-tag">Academic</span>
+            </div>
+            <div class="cards-grid" id="research-cards">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Industry Updates -->
+        <section id="industry" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">🏢</span> Industry & Business
+                </h2>
+                <span class="section-tag">Market</span>
+            </div>
+            <div class="cards-grid" id="industry-cards">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Tools & Models -->
+        <section id="tools" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">🛠️</span> Tools, Models & Open Source
+                </h2>
+                <span class="section-tag">Releases</span>
+            </div>
+            <div class="cards-grid" id="tools-cards">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- AI Gadgets & Devices -->
+        <section id="gadgets" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">📱</span> AI Gadgets & Devices
+                </h2>
+                <span class="section-tag">Hardware</span>
+            </div>
+            <div class="cards-grid" id="gadgets-cards">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- AI Tools Usage Trend Chart -->
+        <section id="trends" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span> AI Tools Usage Trends
+                </h2>
+                <span class="section-tag">Monthly DAU</span>
+            </div>
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="usage-chart"></canvas>
+                </div>
+                <p class="chart-note" id="chart-note">Loading trend data...</p>
+            </div>
+        </section>
+
+        <!-- Quick Summary -->
+        <section class="section summary-section">
+            <div class="summary-box">
+                <h3>📋 Weekly Executive Summary</h3>
+                <div id="weekly-summary" class="summary-content">
+                    Loading this week's AI summary...
+                </div>
+            </div>
+        </section>
+
+        <!-- Archive -->
+        <section id="archive" class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">📁</span> Past Weeks Archive
+                </h2>
+            </div>
+            <div class="archive-grid" id="archive-list">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Built with ❤️ for AI enthusiasts. Auto-updated every Sunday.</p>
+            <p class="footer-note">Last generated: <span id="footer-date">--</span> · Next update: next Sunday</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
