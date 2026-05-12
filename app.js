@@ -303,8 +303,14 @@
         const container = document.getElementById(containerId);
         if (!container || !items.length) return;
 
-        container.innerHTML = items.map(item => `
-            <article class="card card-with-image">
+        // Store item data for modal access
+        if (!window._cardDataMap) window._cardDataMap = {};
+        items.forEach((item, idx) => {
+            window._cardDataMap[`${containerId}-${idx}`] = item;
+        });
+
+        container.innerHTML = items.map((item, idx) => `
+            <article class="card card-with-image" data-card-index="${idx}" data-card-container="${containerId}">
                 <div class="card-image">${generateArticleImage(item.image, 'card')}</div>
                 <div class="card-body">
                     <div class="card-header">
@@ -316,7 +322,7 @@
                     ${item.tags ? `<div class="card-tags">${renderTags(item.tags)}</div>` : ''}
                     <div class="card-footer">
                         <span class="card-source">${item.source}</span>
-                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" class="card-link">View →</a>` : '<span class="card-link" style="color:var(--text-muted)">Details</span>'}
+                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" class="card-link">View →</a>` : `<button class="card-link details-btn">Details</button>`}
                     </div>
                 </div>
             </article>
@@ -499,6 +505,74 @@
         }, 16);
     }
 
+    // ===== Modal / Detail Popup =====
+    function setupModal() {
+        const overlay = document.getElementById('detail-modal');
+        if (!overlay) return;
+
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close button (bound after content is created)
+        overlay.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-close-btn')) closeModal();
+        });
+
+        // Event delegation for Details buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.details-btn');
+            if (!btn) return;
+            const card = btn.closest('article.card');
+            if (!card) return;
+            const idx = card.getAttribute('data-card-index');
+            const containerId = card.getAttribute('data-card-container');
+            const item = window._cardDataMap && window._cardDataMap[`${containerId}-${idx}`];
+            if (item) openModal(item);
+        });
+    }
+
+    function openModal(item) {
+        const overlay = document.getElementById('detail-modal');
+        if (!overlay || !item) return;
+
+        const container = overlay.querySelector('.modal-container');
+        const imgHtml = generateArticleImage(item.image, 'card');
+
+        container.innerHTML = `
+            <div class="modal-image">${imgHtml}</div>
+            <div class="modal-body">
+                <div class="modal-meta">
+                    <span class="modal-category ${getCategoryClass(item.category)}">${capitalize(item.category)}</span>
+                    <span class="modal-date">${item.date}</span>
+                </div>
+                <h3 class="modal-title">${item.title}</h3>
+                <p class="modal-desc">${item.description}</p>
+                ${item.tags && item.tags.length ? `<div class="modal-tags">${renderTags(item.tags)}</div>` : ''}
+                <div class="modal-footer">
+                    <span class="modal-source">📰 ${item.source || 'Unknown'}</span>
+                    <button class="modal-close-btn">Close</button>
+                </div>
+            </div>
+        `;
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const overlay = document.getElementById('detail-modal');
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     // ===== Active Nav Link on Scroll =====
     function setupScrollSpy() {
         const sections = document.querySelectorAll('.section[id]');
@@ -528,6 +602,7 @@
         renderUsageChart(data.usageTrend || null);
         renderSummary(data.summary);
         renderArchive(data.archive || []);
+        setupModal();
         setupScrollSpy();
     }
 
